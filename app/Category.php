@@ -8,4 +8,7 @@ class Category extends Model
 {
     //
     use SoftDeletes;
+    public function products(){
+        return $this->belongsToMany('App\Product');
+    }
 }
