@@ -27,5 +27,7 @@ Route::get('/admin','AdminController@index')->name('admin');
 Route::get('/categories/{id}/restore', 'CategoryController@restore')->name('categories.restore');
 Route::get('/categories/trash', 'CategoryController@trash')->name('categories.trash');
 Route::delete('/categories/{id}/delete-permanent', 'CategoryController@deletePermanent')->name('categories.delete-permanent');
+
+Route::resource('products', 'ProductController');
 Route::resource("users", "UserController");
 Route::resource('categories', 'CategoryController');
