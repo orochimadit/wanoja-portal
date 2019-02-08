@@ -34,3 +34,4 @@ Route::delete('/products/{id}/delete-permanent', 'ProductController@deletePerman
 Route::resource('products', 'ProductController');
 Route::resource("users", "UserController");
 Route::resource('categories', 'CategoryController');
+Route::resource('orders', 'OrderController');
