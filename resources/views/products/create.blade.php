@@ -48,8 +48,8 @@
 
         <select name="categories[]"  multiple id="categories" class="form-control">
         </select>
-
         <br><br/>
+        
         <label for="Price">Price</label> <br>
         <input type="number" class="form-control" name="price" id="price" placeholder="Product price">
         <br>
