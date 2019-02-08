@@ -35,7 +35,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         //
+        $new_product = new \App\Product;
+        $new_product->title = $request->get('title');
+        $new_product->description = $request->get('description');
+        $new_product->merk = $request->get('merk');
+        // $new_product->publisher = $request->get('publisher');
+        $new_product->price = $request->get('price');
+        $new_product->stock = $request->get('stock');
+      
+        $new_product->status = $request->get('save_action');
+
+        $cover = $request->file('cover');
+
+        if($cover){
+        $cover_path = $cover->store('product-covers', 'public');
+
+        $new_product->cover = $cover_path;
+        }
+        $new_product->slug = str_slug($request->get('title'));
+        $new_product->created_by = \Auth::user()->id;
+        $new_product->save();
+        
+        if($request->get('save_action') == 'PUBLISH'){
+            return redirect()
+                  ->route('products.create')
+                  ->with('status', 'Product successfully saved and published');
+          } else {
+            return redirect()
+                  ->route('products.create')
+                  ->with('status', 'Product saved as draft');
+          }
     }
 
     /**
