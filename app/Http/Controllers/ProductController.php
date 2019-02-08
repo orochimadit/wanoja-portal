@@ -14,6 +14,10 @@ class ProductController extends Controller
     public function index()
     {
         //
+        //$categories = \App\Category::paginate(10);
+        $products = \App\Product::with('categories')->paginate(10);
+        //$products = \App\Product::paginate(10);
+        return view('products.index', ['products'=> $products]);
     }
 
     /**
@@ -56,8 +60,10 @@ class ProductController extends Controller
         }
         $new_product->slug = str_slug($request->get('title'));
         $new_product->created_by = \Auth::user()->id;
-        $new_product->save();
         
+        $new_product->save();
+        $new_product->categories()->attach($request->get('categories'));
+
         if($request->get('save_action') == 'PUBLISH'){
             return redirect()
                   ->route('products.create')
