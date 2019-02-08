@@ -14,6 +14,9 @@ class OrderController extends Controller
     public function index()
     {
         //
+        $orders = \App\Order::with('user')->with('products')->paginate(10);
+
+        return view('orders.index', ['orders' => $orders]);
     }
 
     /**
