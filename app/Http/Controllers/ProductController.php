@@ -11,13 +11,19 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        //$categories = \App\Category::paginate(10);
-        $products = \App\Product::with('categories')->paginate(10);
-        //$products = \App\Product::paginate(10);
-        return view('products.index', ['products'=> $products]);
+        
+        $status = $request->get('status');
+
+        if($status){
+            $products = \App\Product::with('categories')->where('status', strtoupper($status))->paginate(10);
+        } else {
+            $products = \App\Product::with('categories')->paginate(10);
+        }
+    
+        return view('products.index', ['products' => $products]);
     }
 
     /**
@@ -152,5 +158,14 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        $product = \App\Product::findOrFail($id);
+        $product->delete();
+
+        return redirect()->route('products.index')->with('status', 'Product moved to trash');
     }
+    public function trash(){
+        $products = \App\Product::onlyTrashed()->paginate(10);
+      
+        return view('products.trash', ['products' => $products]);
+      }
 }

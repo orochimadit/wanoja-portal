@@ -5,7 +5,30 @@
 @section('content') 
   <div class="row">
   
+
     <div class="col-md-12">
+
+    <div class="row">
+  <div class="col-md-6"></div>
+  <div class="col-md-6">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a class="nav-link {{Request::get('status') == NULL && Request::path() == 'products' ? 'active' : ''}}" href="{{route('products.index')}}">All</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link {{Request::get('status') == 'publish' ? 'active' : '' }}" href="{{route('products.index', ['status' => 'publish'])}}">Publish</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{Request::get('status') == 'draft' ? 'active' : '' }}" href="{{route('products.index', ['status' => 'draft'])}}">Draft</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{Request::path() == 'products/trash' ? 'active' : ''}}" href="{{route('products.trash')}}">Trash</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<hr class="my-3">
     <div class="row mb-3">
   <div class="col-md-12 text-right">
     <a
@@ -58,7 +81,25 @@
                 href="{{route('products.edit', ['id' => $product->id])}}"
                 class="btn btn-info btn-sm"
                 > Edit </a>
+                <form
+                    method="POST"
+                    class="d-inline"
+                    onsubmit="return confirm('Move product to trash?')"
+                    action="{{route('products.destroy', ['id' => $product->id ])}}"
+                    >
 
+                    @csrf 
+                    <input 
+                    type="hidden" 
+                    value="DELETE"
+                    name="_method">
+
+                    <input 
+                    type="submit" 
+                    value="Trash" 
+                    class="btn btn-danger btn-sm">
+
+                    </form>
               </td>
             </tr>
           @endforeach

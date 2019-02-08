@@ -28,7 +28,7 @@ Route::get('/categories/{id}/restore', 'CategoryController@restore')->name('cate
 Route::get('/categories/trash', 'CategoryController@trash')->name('categories.trash');
 Route::delete('/categories/{id}/delete-permanent', 'CategoryController@deletePermanent')->name('categories.delete-permanent');
 Route::get('/ajax/categories/search', 'CategoryController@ajaxSearch');
-
+Route::get('/products/trash', 'ProductController@trash')->name('products.trash');
 Route::resource('products', 'ProductController');
 Route::resource("users", "UserController");
 Route::resource('categories', 'CategoryController');
