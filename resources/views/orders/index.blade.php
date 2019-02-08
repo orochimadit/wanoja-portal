@@ -40,7 +40,7 @@
               <td>{{$order->created_at}}</td>
               <td>{{$order->total_price}}</td>
               <td>
-                  [TODO: actions]
+              <a href="{{route('orders.edit', ['id' => $order->id])}}" class="btn btn-info btn-sm"> Edit</a>
               </td>
             </tr>
           @endforeach
