@@ -110,6 +110,37 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $product = \App\Product::findOrFail($id);
+
+        $product->title = $request->get('title');
+        $product->slug = $request->get('slug');
+        $product->description = $request->get('description');
+        $product->merk= $request->get('merk');
+        //$book->publisher = $request->get('publisher');
+        $product->stock = $request->get('stock');
+        $product->price = $request->get('price');
+    
+        $new_cover = $request->file('cover');
+    
+        if($new_cover){
+            if($product->cover && file_exists(storage_path('app/public/' . $product->cover))){
+                \Storage::delete('public/'. $product->cover);
+            }
+    
+            $new_cover_path = $new_cover->store('product-covers', 'public');
+    
+            $product->cover = $new_cover_path;
+        }
+    
+        $product->updated_by = \Auth::user()->id;
+    
+        $product->status = $request->get('status');
+    
+        $product->save();
+    
+        $product->categories()->sync($request->get('categories'));
+    
+        return redirect()->route('products.edit', ['id'=>$product->id])->with('status', 'Product successfully updated');
     }
 
     /**
