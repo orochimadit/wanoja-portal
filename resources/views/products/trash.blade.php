@@ -43,7 +43,28 @@
               <td>{{$product->stock}}</td>
               <td>{{$product->price}}</td>
               <td>
-                  [TODO: actions]
+              <form 
+                method="POST"
+                action="{{route('products.restore', ['id' => $product->id])}}"
+                class="d-inline"
+                >
+
+                @csrf 
+
+                <input type="submit" value="Restore" class="btn btn-success"/>
+                </form>
+                <form
+                method="POST" 
+                action="{{route('products.delete-permanent', ['id' => $product->id])}}"
+                class="d-inline"
+                onsubmit="return confirm('Product this book permanently?')"
+                >
+
+                @csrf 
+                <input type="hidden" name="_method" value="DELETE">
+
+                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                </form>
               </td>
             </tr>
           @endforeach

@@ -168,4 +168,27 @@ class ProductController extends Controller
       
         return view('products.trash', ['products' => $products]);
       }
+
+      public function restore($id){
+        $product = \App\Product::withTrashed()->findOrFail($id);
+      
+        if($product->trashed()){
+          $product->restore();
+          return redirect()->route('products.trash')->with('status', 'Product successfully restored');
+        } else {
+          return redirect()->route('products.trash')->with('status', 'Product is not in trash');
+        }
+      }
+      public function deletePermanent($id){
+        $product = \App\Product::withTrashed()->findOrFail($id);
+      
+        if(!$product->trashed()){
+          return redirect()->route('products.trash')->with('status', 'Product is not in trash!')->with('status_type', 'alert');
+        } else {
+          $product->categories()->detach();
+          $product->forceDelete();
+      
+          return redirect()->route('products.trash')->with('status', 'Product permanently deleted!');
+        }
+      }
 }
