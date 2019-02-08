@@ -16,11 +16,13 @@ class ProductController extends Controller
         //
         
         $status = $request->get('status');
+        $keyword = $request->get('keyword') ? $request->get('keyword') : '';
+
 
         if($status){
-            $products = \App\Product::with('categories')->where('status', strtoupper($status))->paginate(10);
+            $products = \App\Product::with('categories')->where('title', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
         } else {
-            $products = \App\Product::with('categories')->paginate(10);
+            $products = \App\Product::with('categories')->where("title", "LIKE", "%$keyword%")->paginate(10);
         }
     
         return view('products.index', ['products' => $products]);
