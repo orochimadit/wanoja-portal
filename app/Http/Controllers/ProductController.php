@@ -49,6 +49,15 @@ class ProductController extends Controller
     {
 
         //
+        \Validator::make($request->all(), [
+            "title" => "required|min:5|max:200",
+            "description" => "required|min:20|max:1000",
+            "merk" => "required|min:3|max:100",
+            "price" => "required|digits_between:0,10",
+            "stock" => "required|digits_between:0,10",
+            "cover" => "required"
+        ])->validate();  
+
         $new_product = new \App\Product;
         $new_product->title = $request->get('title');
         $new_product->description = $request->get('description');

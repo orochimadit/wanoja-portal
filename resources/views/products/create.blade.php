@@ -22,23 +22,40 @@
         @csrf
 
         <label for="title">Title</label> <br>
-        <input type="text" class="form-control" name="title" placeholder="Product title">
+        <input type="text" class="form-control {{$errors->first('title') ? "is-invalid" : ""}} " name="title" placeholder="Product title" value="{{old('title')}}">
+        <div class="invalid-feedback">
+          {{$errors->first('title')}}
+        </div>
         <br>
 
         <label for="cover">Cover</label>
-        <input type="file" class="form-control" name="cover">
+        <input type="file" class="form-control {{$errors->first('covers') ? "is-invalid" : ""}}" name="cover">
+        <div class="invalid-feedback">
+          {{$errors->first('cover')}}
+        </div>
         <br>
 
         <label for="description">Description</label><br>
-        <textarea name="description" id="description" class="form-control" placeholder="Give a description about this Product"></textarea>
+        <textarea name="description" id="description" class="form-control {{$errors->first('covers') ? "is-invalid" : ""}}" 
+        placeholder="Give a description about this Product">{{old('description')}}</textarea>
+        <div class="invalid-feedback">
+          {{$errors->first('description')}}
+        </div>
         <br>
 
         <label for="stock">Stock</label><br>
-        <input type="number" class="form-control" id="stock" name="stock" min=0 value=0>
+        <input type="number" class="form-control {{$errors->first('stock') ? "is-invalid" : ""}}" 
+        id="stock" name="stock" min=0 value=0>
+        <div class="invalid-feedback">
+          {{$errors->first('stock')}}
+        </div>
         <br>
 
         <label for="merk">Merk</label><br>
-        <input type="text" class="form-control" name="merk" id="merk" placeholder="Product Merk">
+        <input type="text" class="form-control {{$errors->first('merk') ? "is-invalid" : ""}}" name="merk" id="merk" placeholder="Product Merk">
+        <div class="invalid-feedback">
+          {{$errors->first('merk')}}
+        </div>
         <br>
 
         <!-- <label for="publisher">Publisher</label>  <br>
@@ -51,7 +68,10 @@
         <br><br/>
         
         <label for="Price">Price</label> <br>
-        <input type="number" class="form-control" name="price" id="price" placeholder="Product price">
+        <input type="number" class="form-control {{$errors->first('merk') ? "is-invalid" : ""}}" name="price" id="price" placeholder="Product price">
+        <div class="invalid-feedback">
+          {{$errors->first('price')}}
+        </div>
         <br>
 
         <button 
