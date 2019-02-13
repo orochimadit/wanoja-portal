@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -129,6 +130,20 @@ class ProductController extends Controller
         //
         $product = \App\Product::findOrFail($id);
 
+        \Validator::make($request->all(), [
+            "title" => "required|min:5|max:200",
+            "slug" => [
+                "required",
+                Rule::unique("products")->ignore($product->slug, "slug")
+            ],
+            "description" => "required|min:20|max:1000",
+            "merk" => "required|min:3|max:100",
+            "price" => "required|digits_between:0,10",
+            "stock" => "required|digits_between:0,10",
+            "cover" => "required"
+        ])->validate();  
+
+        
         $product->title = $request->get('title');
         $product->slug = $request->get('slug');
         $product->description = $request->get('description');

@@ -26,11 +26,14 @@
     <label for="title">Title</label><br>
     <input
       type="text"
-      class="form-control"
+      class="form-control {{$errors->first('title') ? "is-invalid" : ""}}"
       value="{{$product->title}}"
       name="title"
       placeholder="Product title"
     />
+    <div class="invalid-feedback">
+          {{$errors->first('title')}}
+      </div>
     <br>
 
     <label for="cover">Cover</label><br>
@@ -41,10 +44,13 @@
     <br><br>
     <input 
       type="file" 
-      class="form-control"
+      class="form-control {{$errors->first('cover') ? "is-invalid" : ""}}"
       name="cover"
     >
     <small class="text-muted">Kosongkan jika tidak ingin mengubah cover</small>
+    <div class="invalid-feedback">
+          {{$errors->first('cover')}}
+      </div>
     <br><br>
 
     <label for="slug">Slug</label><br>
@@ -58,7 +64,11 @@
     <br>
 
     <label for="description">Description</label> <br>
-    <textarea name="description" id="description" class="form-control">{{$product->description}}</textarea>
+    <textarea name="description" id="description"
+     class="form-control {{$errors->first('description') ? "is-invalid" : ""}}">{{$product->description}}</textarea>
+     <div class="invalid-feedback">
+          {{$errors->first('description')}}
+      </div>
     <br>
 
     <label for="categories">Categories</label>
@@ -67,16 +77,25 @@
     <br>
 
     <label for="stock">Stock</label><br>
-    <input type="text" class="form-control" placeholder="Stock" id="stock" name="stock" value="{{$product->stock}}">
+    <input type="text" class="form-control {{$errors->first('stock') ? "is-invalid" : ""}}" placeholder="Stock" id="stock" name="stock" value="{{$product->stock}}">
+    <div class="invalid-feedback">
+          {{$errors->first('stock')}}
+      </div>
     <br>
 
     <label for="merk">Merk</label>
-    <input placeholder="Merk" value="{{$product->merk}}" type="text" id="merk" name="merk" class="form-control">
+    <input placeholder="Merk" value="{{$product->merk}}" type="text" id="merk" name="merk" class="form-control {{$errors->first('merk') ? "is-invalid" : ""}}">
+    <div class="invalid-feedback">
+          {{$errors->first('merk')}}
+      </div>
     <br>
 
 
     <label for="price">Price</label><br>
-    <input type="text" class="form-control" name="price" placeholder="Price" id="price" value="{{$product->price}}">
+    <input type="text" class="form-control {{$errors->first('price') ? "is-invalid" : ""}}" name="price" placeholder="Price" id="price" value="{{$product->price}}">
+    <div class="invalid-feedback">
+          {{$errors->first('price')}}
+      </div>
     <br>
 
     <label for="">Status</label>
