@@ -45,7 +45,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
-          $name = $request->get('name');
+        \Validator::make($request->all(), [
+            "name" => "required|min:3|max:20",
+            "image" => "required"
+        ])->validate();
+        
+     $name = $request->get('name');
 
     $new_category = new \App\Category;
     $new_category->name = $name;

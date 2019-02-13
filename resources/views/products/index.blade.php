@@ -16,8 +16,7 @@
     <div class="row">
   <div class="col-md-6">
   <form
-  action="{{route('products.index')}}"
->
+  action="{{route('products.index')}}">
 
 <div class="input-group">
     <input name="keyword" type="text" value="{{Request::get('keyword')}}" class="form-control" placeholder="Filter by title">
