@@ -233,4 +233,14 @@ class ProductController extends Controller
         $criteria = Product::paginate(6);
         return new ProductResourceCollection($criteria);
     }
+
+    public function search($keyword)
+    {
+        $criteria = Product::select('*')
+        ->where('title', 'LIKE', "%".$keyword."%")
+        ->orderBy('views', 'DESC')
+        ->get();
+        return new ProductResourceCollection($criteria);
+    }
+
 }

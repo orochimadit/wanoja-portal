@@ -22,6 +22,7 @@ Route::prefix('v1')->group(function () {
     Route::get('categories', 'CategoryController@indexApi'); // ini
     Route::get('products', 'ProductController@indexApi'); // <= ini ya
     Route::get('categories/slug/{slug}', 'CategoryController@slug'); 
+    Route::get('products/search/{keyword}', 'ProductController@search'); 
     Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
