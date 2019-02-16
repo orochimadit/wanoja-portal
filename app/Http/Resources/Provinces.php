@@ -14,6 +14,11 @@ class Provinces extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'status' => 'success',
+            'message' => 'provinces data',
+            'data' => parent::toArray($request),
+            ];
+           
     }
 }
