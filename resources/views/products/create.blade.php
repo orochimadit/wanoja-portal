@@ -44,8 +44,7 @@
         <br>
 
         <label for="stock">Stock</label><br>
-        <input type="number" class="form-control {{$errors->first('stock') ? "is-invalid" : ""}}" 
-        id="stock" name="stock" min=0 value=0>
+        <input type="number" class="form-control {{$errors->first('stock') ? "is-invalid" : ""}}" id="stock" name="stock" min=0 value=0>
         <div class="invalid-feedback">
           {{$errors->first('stock')}}
         </div>

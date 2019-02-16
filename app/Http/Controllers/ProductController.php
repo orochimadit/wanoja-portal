@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Product;
+use App\Http\Resources\Products as ProductResourceCollection;
 
 class ProductController extends Controller
 {
@@ -217,4 +219,14 @@ class ProductController extends Controller
           return redirect()->route('products.trash')->with('status', 'Product permanently deleted!');
         }
       }
+
+      public function top($count)
+    {
+        $criteria = Product::select('*')
+            ->orderBy('views', 'DESC')
+            ->limit($count)
+            ->get();        
+        return new ProductResourceCollection($criteria);
+    }
+
 }
