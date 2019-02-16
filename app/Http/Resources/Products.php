@@ -16,7 +16,7 @@ class Products extends ResourceCollection
     {
         return [
             'status'  => 'success',
-            'message' => 'books data',
+            'message' => 'products data',
             'data'    => parent::toArray($request),
         ];
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Category;
 use App\Http\Resources\Categories as CategoryResourceCollection;;
+use App\Http\Resources\Category as CategoryResource;
 class CategoryController extends Controller
 {
     /**
@@ -217,5 +218,11 @@ class CategoryController extends Controller
             ->get();        
         return new CategoryResourceCollection($criteria);
     }
+
+    public function slug($slug)
+        {
+        $criteria = Category::where('slug', $slug)->first();
+        return new CategoryResource($criteria);
+        }
 
 }

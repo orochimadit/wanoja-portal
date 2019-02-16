@@ -9,7 +9,7 @@ class Category extends Model
     //
     use SoftDeletes;
     public function products(){
-        return $this->belongsToMany('App\Product');
+        return $this->belongsToMany('App\Product','category_product','category_id','product_id');
     }
 
     
