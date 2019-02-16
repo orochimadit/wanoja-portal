@@ -20,7 +20,7 @@ Route::prefix('v1')->group(function () {
     Route::get('categories/random/{count}', 'CategoryController@random'); // <== ini ya gaes
     Route::get('products/top/{count}', 'ProductController@top'); // <= ini ya
     Route::get('categories', 'CategoryController@indexApi'); // ini
-
+    Route::get('products', 'ProductController@indexApi'); // <= ini ya
     Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

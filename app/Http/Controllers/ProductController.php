@@ -228,5 +228,9 @@ class ProductController extends Controller
             ->get();        
         return new ProductResourceCollection($criteria);
     }
-
+    public function indexApi()
+    {
+        $criteria = Product::paginate(6);
+        return new ProductResourceCollection($criteria);
+    }
 }
