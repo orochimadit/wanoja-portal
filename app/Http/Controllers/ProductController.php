@@ -58,9 +58,9 @@ class ProductController extends Controller
             "merk" => "required|min:3|max:100",
             "price" => "required|digits_between:0,10",
             "stock" => "required|digits_between:0,10",
-            "cover" => "required"
+             "cover" => "required"
         ])->validate();  
-
+        // 
         $new_product = new \App\Product;
         $new_product->title = $request->get('title');
         $new_product->description = $request->get('description');

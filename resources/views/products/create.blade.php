@@ -2,7 +2,7 @@
 
 
 
-@section('title') Create book @endsection 
+@section('title') Create Product @endsection 
 
 @section('content')
   <div class="row">
@@ -29,15 +29,15 @@
         <br>
 
         <label for="cover">Cover</label>
-        <input type="file" class="form-control {{$errors->first('covers') ? "is-invalid" : ""}}" name="cover">
+        <input type="file" class="form-control {{$errors->first('cover') ? "is-invalid" : ""}}" name="cover">
         <div class="invalid-feedback">
           {{$errors->first('cover')}}
         </div>
         <br>
 
         <label for="description">Description</label><br>
-        <textarea name="description" id="description" class="form-control {{$errors->first('covers') ? "is-invalid" : ""}}" 
-        placeholder="Give a description about this Product">{{old('description')}}</textarea>
+        <textarea name="description" id="description" class="form-control {{$errors->first('description') ? "is-invalid" : ""}}" 
+        placeholder="Give a description about this Product"></textarea>
         <div class="invalid-feedback">
           {{$errors->first('description')}}
         </div>
@@ -67,7 +67,7 @@
         <br><br/>
         
         <label for="Price">Price</label> <br>
-        <input type="number" class="form-control {{$errors->first('merk') ? "is-invalid" : ""}}" name="price" id="price" placeholder="Product price">
+        <input type="number" class="form-control {{$errors->first('price') ? "is-invalid" : ""}}" name="price" id="price" placeholder="Product price">
         <div class="invalid-feedback">
           {{$errors->first('price')}}
         </div>
