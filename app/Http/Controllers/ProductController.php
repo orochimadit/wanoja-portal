@@ -243,4 +243,44 @@ class ProductController extends Controller
         return new ProductResourceCollection($criteria);
     }
 
+    //menambahkan cart 
+    public function cart(Request $request)
+    {
+        //$request->carts = '[{"id":3,"quantity":4}]';
+        $carts = json_decode($request->carts, true);
+        $product_carts = [];
+        foreach($carts as $cart){
+            $id = (int)$cart['id'];
+            $quantity = (int)$cart['quantity'];
+            $product = Product::find($id);
+            if($product){
+                $note = 'unsafe';
+                if($product->stock >= $quantity){
+                    $note = 'safe';
+                }
+                else {
+                    $quantity = (int) $product->stock;
+                    $note = 'out of stock'; 
+                }
+                $product_carts[] = [
+                    'id' => $id,
+                    'title' => $product->title,
+                    'cover' => $product->cover,
+                    'price' => $product->price,
+                    'quantity' => $quantity,
+                    'note' => $note
+                ];
+            }
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'carts',
+            'data' => $product_carts,
+        ], 200); 
+        //foreach ($carts as $cart) {
+            //var_dump(($request->carts));
+        //}
+        //$book_carts = [];
+        //Book::find
+    }
 }
