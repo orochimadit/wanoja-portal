@@ -31,4 +31,11 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany('App\Order');
       }
+
+      public function generateToken()
+      {
+          $this->remember_token = str_random(60);
+          $this->save();
+          return $this->remember_token;
+      }
 }

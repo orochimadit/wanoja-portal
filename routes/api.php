@@ -14,8 +14,9 @@ use Illuminate\Http\Request;
 */
 Route::prefix('v1')->group(function () { 
 //     // public
-//     Route::post('login', 'AuthController@login');
+     Route::post('login', 'AuthController@login');
 //     Route::post('register', 'AuthController@register');
+
 
     Route::get('categories/random/{count}', 'CategoryController@random'); // <== ini ya gaes
     Route::get('products/top/{count}', 'ProductController@top'); // <= ini ya
@@ -24,12 +25,14 @@ Route::prefix('v1')->group(function () {
     Route::get('categories/slug/{slug}', 'CategoryController@slug'); 
     Route::get('products/search/{keyword}', 'ProductController@search');
     Route::post('products/cart', 'ProductController@cart'); 
+    Route::get('products/slug/{slug}', 'ProductController@slug');
 
     Route::get('provinces', 'ShopController@provinces');
     //Route::get('provinces', 'ShopController@provinces');
     Route::get('cities', 'ShopController@cities');
     Route::get('couriers', 'ShopController@couriers');
     Route::middleware('auth:api')->get('/user', function (Request $request) {
+        Route::post('logout', 'AuthController@logout');
         Route::post('shipping', 'ShopController@shipping');
         Route::post('services', 'ShopController@services');
         Route::post('payment', 'ShopController@payment');

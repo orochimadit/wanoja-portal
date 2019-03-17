@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Product;
 use App\Http\Resources\Products as ProductResourceCollection;
+use App\Http\Resources\Product as ProductResource;
 
 class ProductController extends Controller
 {
@@ -207,6 +208,11 @@ class ProductController extends Controller
           return redirect()->route('products.trash')->with('status', 'Product is not in trash');
         }
       }
+      public function slug($slug)
+        {
+            $criteria = Product::where('slug', $slug)->first();
+            return new ProductResource($criteria);
+        }
       public function deletePermanent($id){
         $product = \App\Product::withTrashed()->findOrFail($id);
       
