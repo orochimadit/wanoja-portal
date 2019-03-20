@@ -178,6 +178,8 @@ class ShopController extends Controller
             if($destination>0){
                 // hardcode
                 $origin = 153; // Jakarta Selatan
+                $originType = "city";
+                $destinationType = "city";
                 $courier = $request->courier;
                 $carts = $request->carts;
                 $carts = json_decode($carts, true);
@@ -190,8 +192,10 @@ class ShopController extends Controller
                 if($weight>0){
                     // request courier service API RajaOngkir
                     $parameter = [
-                        "origin"        => $origin, 
+                        "origin"        => $origin,
+                        "originType"    => $originType,
                         "destination"   => $destination, 
+                        "destinationType" => $destinationType,
                         "weight"        => $weight, 
                         "courier"       => $courier
                     ];

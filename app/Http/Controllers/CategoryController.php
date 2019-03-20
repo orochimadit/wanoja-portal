@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Category;
 use App\Http\Resources\Categories as CategoryResourceCollection;;
 use App\Http\Resources\Category as CategoryResource;
+use Illuminate\Support\Facades\Storage;
 class CategoryController extends Controller
 {
     /**
@@ -60,10 +61,15 @@ class CategoryController extends Controller
 
     if($request->file('image')){
 
-        $image_path = $request->file('image')
-                ->store('category_images', 'public');
+        // $image_path = $request->file('image')
+        //         ->store('category_images', 'public');
 
-        $new_category->image = $image_path;
+        $url = Storage::url($request->file('image')
+        ->store('category_images', 'public'));
+
+        //dd($url);
+        $new_category->image = $url;
+        
     }
 
     $new_category->created_by = \Auth::user()->id;

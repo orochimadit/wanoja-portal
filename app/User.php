@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username', 'roles',
+        'address', 'city_id', 'province_id', 'phone', 'avatar', 'status'
     ];
 
     /**
@@ -32,10 +33,17 @@ class User extends Authenticatable
         return $this->hasMany('App\Order');
       }
 
+    //   public function generateToken()
+    //   {
+    //       $this->remember_token = str_random(60);
+    //       $this->save();
+    //       return $this->remember_token;
+    //   }
       public function generateToken()
       {
-          $this->remember_token = str_random(60);
+          $this->api_token = str_random(60);
           $this->save();
-          return $this->remember_token;
+  
+          return $this->api_token;
       }
 }
