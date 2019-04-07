@@ -170,6 +170,7 @@ class ShopController extends Controller
         $this->validate($request, [
             'courier' => 'required', 
             'carts' => 'required',
+
         ]);
 
         $user = Auth::user();
@@ -180,6 +181,7 @@ class ShopController extends Controller
                 $origin = 153; // Jakarta Selatan
                 $originType = "city";
                 $destinationType = "city";
+                // $destinationType = $request->type;
                 $courier = $request->courier;
                 $carts = $request->carts;
                 $carts = json_decode($carts, true);
@@ -192,12 +194,12 @@ class ShopController extends Controller
                 if($weight>0){
                     // request courier service API RajaOngkir
                     $parameter = [
-                        "origin"        => $origin,
-                        "originType"    => $originType,
-                        "destination"   => $destination, 
-                        "destinationType" => $destinationType,
-                        "weight"        => $weight, 
-                        "courier"       => $courier
+                        "origin"            => $origin,
+                        "originType"        => $originType,
+                        "destination"       => $destination, 
+                        "destinationType"   => $destinationType,
+                        "weight"            => $weight, 
+                        "courier"           => $courier
                     ];
                     $respon_services = $this->getServices($parameter);
                     if ($respon_services['error']==null) {
@@ -275,6 +277,8 @@ class ShopController extends Controller
                 // prepare data
                 $origin = 153; // Jakarta Selatan
                 $destination = $user->city_id;
+                $destinationType = "city";
+                $originType = "city";
                 if($destination<=0) $error++;
                 $courier = $request->courier;
                 $service = $request->service;
@@ -293,14 +297,14 @@ class ShopController extends Controller
                     foreach($carts as $cart){
                         $id = (int)$cart['id'];
                         $quantity = (int)$cart['quantity'];
-                        $book = Book::find($id);
+                        $book = Product::find($id);
                         if($book){
                             if($book->stock>=$quantity){
                                 $total_price += $book->price * $quantity;
                                 $total_weight += $book->weight * $quantity;
                                 // create book order
-                                $book_order = new BookOrder;
-                                $book_order->book_id = $book->id;
+                                $book_order = new ProductOrder;
+                                $book_order->product_id = $book->id;
                                 $book_order->order_id = $order->id;
                                 $book_order->quantity = $quantity;
                                 if($book_order->save()){
@@ -328,6 +332,8 @@ class ShopController extends Controller
                     }
                     $data = [
                         "origin"        => $origin, 
+                        "originType"        => $originType, 
+                        "destinationType"=>$destinationType,
                         "destination"   => $destination, 
                         "weight"        => $weight, 
                         "courier"       => $courier
